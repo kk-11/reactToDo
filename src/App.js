@@ -13,16 +13,19 @@ class App extends Component {
     this.addTask = this.addTask.bind(this);    
     this.toggleDone = this.toggleDone.bind(this);
     this.removeTask = this.removeTask.bind(this);
+
     this.app = firebase.initializeApp(DB_CONFIG);
     this.database = this.app.database().ref().child('tasks');
     this.state = {
-      tasks: [],     
+      tasks: [], 
+      taskDone: true    
     }
-  }
-  
+  }  
   componentWillMount(){
-    const oldTasks = this.state.tasks;
-   console.log(oldTasks);
+   const oldTasks = this.state.tasks;
+
+   
+   
 
 
     this.database.on('child_added', snap => {
@@ -58,14 +61,16 @@ class App extends Component {
   removeTask(taskID){
     this.database.child(taskID).remove();
   } 
-  toggleDone(taskID, taskDone){
-   
+  toggleDone(taskID, taskDone){   
+    const bool = this.state.taskDone;
+    console.log(bool);
+
     this.database.child(taskID).update({
-      taskDone: !this.state.taskDone 
+      taskDone: bool
     });
      this.setState({
-        taskDone : !this.state.taskDone
-      })
+        taskDone : !bool
+      });
 
   
   }
@@ -84,8 +89,7 @@ class App extends Component {
                         taskID={tasks.id} 
                         key={tasks.id}
                         taskDone={tasks.taskDone}
-                        removeTask = {this.removeTask} 
-                        
+                        removeTask = {this.removeTask}                         
                         toggleDone={this.toggleDone}/>
                     )
                   })

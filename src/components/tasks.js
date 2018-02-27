@@ -7,6 +7,7 @@ class Tasks extends Component {
 
   constructor(props){
     super(props);
+
     this.taskContent = props.taskContent;
     this.taskID = props.taskID;
     this.taskDone = props.taskDone;
@@ -23,22 +24,34 @@ class Tasks extends Component {
   handleRemoveTask(id){
     this.props.removeTask(id);
   }
-  componentWillMount(id, taskDone){
-    
-    if(taskDone == false){this.setState({styleClass: 'task'})}else{this.setState({styleClass: 'task-done'})}
+  componentWillMount(){
+    let styleClass;
+    if (this.props.taskDone == false){
+      styleClass = 'task-done';
+    } else{
+      styleClass = 'task';
+    }
+    this.setState({ styleClass });
   }
 
   handleTaskDone(id,taskDone){
-     console.log(taskDone);
+    
     this.props.toggleDone(id,taskDone);    
-    if(taskDone = true){this.setState({styleClass: 'task'})}else{this.setState({styleClass: 'task-done'})};
-     this.setState({
-        taskDone : !this.state.taskDone
+    
+     var newState;
+     newState = this.state.taskDone ? "task" : "task-done";
+      this.setState({
+      styleClass: newState,
+      taskDone : !this.state.taskDone
       })
+
+
    } 
+   // <div className={isLoggedIn ? 'currently' : 'not'} >{this.taskContent}</div>   
   render(){
     return(      
-        <div className="task fade-in" >        
+        <div className="task fade-in" >  
+
           <div className={this.state.styleClass}>{this.taskContent}</div>               
           <div className="tick" onClick = {() => this.handleTaskDone(this.taskID,this.taskDone)}>&#10004;
           </div>           

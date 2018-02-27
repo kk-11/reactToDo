@@ -1,6 +1,4 @@
-
-
-  // Initialize Firebase
+// Initialize Firebase
   export const DB_CONFIG = {
     apiKey: "AIzaSyCQ5gDCFvBt26YflWj29suifbjc92kqsko",
     authDomain: "my-react-db-b8aad.firebaseapp.com",

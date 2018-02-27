@@ -12,16 +12,15 @@ body {
 h1 {
   align-self: center;
   justify-self: center; 
+
   transform: rotate(-90deg); 
   color: #cccccc;
   font-family: 'Italianno', cursive;
   font-size: 12em;
-  text-align: center;
   opacity: 0.7;
   margin: 0;
   padding: 0;
-  cursor: default;
-  
+  cursor: default;  
 }
 .taskContainter {  
 }
