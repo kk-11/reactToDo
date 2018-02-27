@@ -1,0 +1,68 @@
+.task {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  position: relative;
+  padding:10px;
+  height: auto; 
+  margin: auto;
+  margin-bottom: 8px;
+  width: 60%;
+  font-family: 'Lato', sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: black;
+  background: #abbcda;
+  border-radius: 3px;
+  opacity: 0.7;
+  text-align: center;
+}
+.contentDiv{
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    padding: 10px;
+}
+.task:hover{
+  filter: brightness(110%);  
+}
+.task-done{
+  display: grid;
+  grid-template-columns: 80% 20%;
+  text-decoration: line-through;
+  background: #cccccc;
+  padding:10px 10px 15px 34px;
+  height: auto; 
+  margin: auto;
+  margin-bottom: 8px;
+  width: 60%;
+  font-family: 'Lato', sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: black;  
+  border-radius: 3px;
+  box-shadow: 43x 3px 2px #333;
+  opacity: 0.7;
+  text-align: center;
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:0.8; }}
+.fade-in {
+    opacity:0;
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration: 0.5s;
+}
+.close,.tick{
+    color: black;
+    font-weight: bold;
+    float:  right;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 5px;    
+}
+ .tick:hover {
+    color: white;    
+}
+.close:hover{
+    color: red;
+}
