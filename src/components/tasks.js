@@ -11,49 +11,44 @@ class Tasks extends Component {
     this.taskContent = props.taskContent;
     this.taskID = props.taskID;
     this.taskDone = props.taskDone;
+    
 
     this.handleRemoveTask = this.handleRemoveTask.bind(this);
     this.handleTaskDone = this.handleTaskDone.bind(this);
 
-    this.state = {
-      taskDone: '',
+    this.state = {      
       styleClass: ''
     }
-
   }
   handleRemoveTask(id){
     this.props.removeTask(id);
   }
   componentWillMount(){
     let styleClass;
-    if (this.props.taskDone == false){
-      styleClass = 'task-done';
+    if (this.props.taskDone == true){
+      styleClass = 'task-done fade-in';
     } else{
-      styleClass = 'task';
+      styleClass = 'task fade-in';
     }
     this.setState({ styleClass });
   }
+  handleTaskDone(id,taskDone){    
+    //  there are also issues here, there are two taskDone
+    this.props.toggleDone(id,taskDone);     
+    var newState;
 
-  handleTaskDone(id,taskDone){
-    
-    this.props.toggleDone(id,taskDone);    
-    
-     var newState;
-     newState = this.state.taskDone ? "task" : "task-done";
-      this.setState({
+    newState = this.state.taskDone ? "task fade-in" : "task-done fade";
+
+    this.setState({
       styleClass: newState,
       taskDone : !this.state.taskDone
       })
-
-
-   } 
-   // <div className={isLoggedIn ? 'currently' : 'not'} >{this.taskContent}</div>   
+   }    
   render(){
     return(      
-        <div className="task fade-in" >  
-
-          <div className={this.state.styleClass}>{this.taskContent}</div>               
-          <div className="tick" onClick = {() => this.handleTaskDone(this.taskID,this.taskDone)}>&#10004;
+        <div className={this.state.styleClass}>
+          <div>{this.taskContent}</div>               
+          <div className="tick" onClick = {() => this.handleTaskDone(this.taskID,this.props.taskDone)}>&#10004;
           </div>           
           <div></div>
           <div className="close" onClick = {() => {if(window.confirm('Delete permenantly?')) {this.handleRemoveTask(this.taskID)};}}
@@ -62,10 +57,9 @@ class Tasks extends Component {
     );
   }
 }
-
 Tasks.propTypes = {
-  taskContent: PropTypes.string
+  taskContent: PropTypes.string,
+  taskDone: PropTypes.bool
 }
-
 export default Tasks;
 
