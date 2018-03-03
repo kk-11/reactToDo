@@ -7,17 +7,38 @@ class TimeDate extends Component {
 
   constructor(props){
     super(props);
-
     var today = new Date(),
             date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear(),
             time = today.getHours() + ':' + ('0' + today.getMinutes()).slice(-2);
         this.state = {
             date: date,
             time: time
-        };
+        };      
+     
   }
-  
-// + ':' + today.getSeconds()
+
+  componentDidMount(){
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+  componentWillUnmount(){
+    clearInterval(this.timerID);
+  }
+  componentDidMount(){
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+  tick(){
+  var today = new Date();
+    this.setState({
+      date : today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear(),
+      time : today.getHours() + ':' + ('0' + today.getMinutes()).slice(-2)
+    });
+  }
   render() {
     return (
       <div className="TimeDate">     
@@ -27,7 +48,5 @@ class TimeDate extends Component {
     );
   }
 }
-
-
 
 export default TimeDate;

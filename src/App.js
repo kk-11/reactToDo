@@ -18,14 +18,12 @@ class App extends Component {
     this.app = firebase.initializeApp(DB_CONFIG);
     this.database = this.app.database().ref().child('tasks');
     this.state = {
-      tasks: [], 
-      taskDone: ''     
+      tasks: []           
     }
   }  
   componentWillMount(){
     // componentWillMount loads/sets state before the page loads
     const oldTasks = this.state.tasks;
-
   
     this.database.on('child_added', snap => {
         oldTasks.unshift({
@@ -61,22 +59,20 @@ class App extends Component {
   } 
   toggleDone(taskID, taskDone){  
     // toggleDone takes the task ID and and the taskDone boolean from tasks.js
-    //
     const oldTasks = this.state.tasks;
     var bool = '';
-    this.database.child(taskID).on("value", function(snapshot) {
-      bool = snapshot.val().taskDone;
-    });
-    //THE ISSUE IS HERE, I SHOULDNT REFER TO THE TASKDONE IN STATE BUT THE TASKDONE IN THE TASKS ARRAY
-    // AND THEN UPDATE THE ARRAY
+    for(var i=0;i < oldTasks.length;i++){
+      if(oldTasks[i].id === taskID){
+        bool = oldTasks[i].taskDone;
+        oldTasks[i].taskDone = !bool;
+      }
+    }
     this.database.child(taskID).update({
       taskDone: !bool
-    });
-    //need to read value from DB to set state
-     this.setState({
+    });    
+    this.setState({
         tasks : oldTasks
-      });  
-     console.log(bool);
+      })      
   }
   render() {
     return (

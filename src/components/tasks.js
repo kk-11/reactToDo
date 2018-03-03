@@ -7,48 +7,49 @@ class Tasks extends Component {
 
   constructor(props){
     super(props);
-
     this.taskContent = props.taskContent;
     this.taskID = props.taskID;
-    this.taskDone = props.taskDone;
-    
-
+    this.taskDone = props.taskDone;    
     this.handleRemoveTask = this.handleRemoveTask.bind(this);
-    this.handleTaskDone = this.handleTaskDone.bind(this);
-
+    this.handleTaskDone = this.handleTaskDone.bind(this);    
     this.state = {      
-      styleClass: ''
+      styleClass: '',
+      styleContent: ''  
     }
-  }
+  } 
   handleRemoveTask(id){
     this.props.removeTask(id);
   }
   componentWillMount(){
     let styleClass;
-    if (this.props.taskDone == true){
-      styleClass = 'task-done fade-in';
-    } else{
+    let styleContent;
+    if (this.props.taskDone == false){
       styleClass = 'task fade-in';
+      styleContent = 'noLine'
+    } else{
+      styleClass = 'task-done fade-in';
+      styleContent = 'lineThrough'
     }
-    this.setState({ styleClass });
+    this.setState({ styleClass, styleContent
+     });    
   }
   handleTaskDone(id,taskDone){    
-    //  there are also issues here, there are two taskDone
-    this.props.toggleDone(id,taskDone);     
-    var newState;
-
-    newState = this.state.taskDone ? "task fade-in" : "task-done fade";
-
+    // passes props to app.js and also toggles styleclass state which is the only stately concern of this component
+    this.props.toggleDone(id, taskDone);      
+    var newState, newContentStyle;
+    newState = this.props.taskDone ? "task fade-in" : "task-done fade-in";
+    newContentStyle = this.props.taskDone ? "noLine" : "lineThrough";
+    console.log(this.props.taskDone, this.props.taskID);
     this.setState({
       styleClass: newState,
-      taskDone : !this.state.taskDone
-      })
+      styleContent: newContentStyle
+      });    
    }    
   render(){
     return(      
         <div className={this.state.styleClass}>
-          <div>{this.taskContent}</div>               
-          <div className="tick" onClick = {() => this.handleTaskDone(this.taskID,this.props.taskDone)}>&#10004;
+          <div className={this.state.styleContent}>{this.taskContent}</div>               
+          <div className="tick" onClick = {() => this.handleTaskDone(this.props.taskID,this.props.taskDone)}>&#10004;
           </div>           
           <div></div>
           <div className="close" onClick = {() => {if(window.confirm('Delete permenantly?')) {this.handleRemoveTask(this.taskID)};}}

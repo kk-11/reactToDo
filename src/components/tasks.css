@@ -17,20 +17,11 @@
   opacity: 0.7;
   text-align: center;
 }
-.contentDiv{
-    overflow: hidden;
-    text-overflow: ellipsis; 
-    padding: 10px;
-}
-.task:hover{
-  filter: brightness(110%);  
-}
 .task-done{
   display: grid;
   grid-template-columns: 80% 20%;
-  text-decoration: line-through;
   background: #cccccc;
-  padding:10px 10px 15px 34px;
+  padding: 10px;
   height: auto; 
   margin: auto;
   margin-bottom: 8px;
@@ -45,6 +36,19 @@
   opacity: 0.7;
   text-align: center;
 }
+.noLine{
+  text-decoration: none;
+}
+.lineThrough{
+  text-decoration: line-through;
+}
+.task:hover{
+  filter: brightness(110%);  
+}
+
+.task-done:hover{
+  filter: brightness(110%);  
+}
 @keyframes fadeIn { from { opacity:0; } to { opacity:0.8; }}
 .fade-in {
     opacity:0;
@@ -53,6 +57,7 @@
     animation-duration: 0.5s;
 }
 .close,.tick{
+    text-decoration: none;
     color: black;
     font-weight: bold;
     float:  right;
