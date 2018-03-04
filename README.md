@@ -1,12 +1,20 @@
-Killian de Buitlier 
-
 This is a to-do app made with react and firebase.
+
+Using npm and create-react-app I set up a react development environment
 
 The app is split into 4 components: 
   App.js component ( parent ) 
   tasks.js component
   form.js component
   timedate component
+  
+App.js is primarily concerned with database manipulation, and maintaining the majority state.
+
+Tasks.js takes the individual tasks and attributes from app.js, and presents them. tasks.js only state concern is the presentation of the tasks; whether done or undone. The buttons also appear here and pass the task ID back to the parent component for updating the database
+
+Form.js takes what the user types and gives this content back to the parent again.
+
+timedate.js is concerned with getting and presenting the time and date, the component maintains it's own state.  
 
 Future additions:
 
